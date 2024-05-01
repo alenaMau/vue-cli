@@ -1,14 +1,18 @@
 <template>
-  <div class="home">
-    <section class="catalog_item">
+  <div>
+    <section class="catalog">
       <h3>Каталог товаров</h3>
-      <div>
-        <div v-for="product in products">
+      <div class="catalog_item">
+        <div v-for="product in products" class="catalog_item_card">
           <div class="catalog_item_imgBox">
-            <span>{{product.price}}₽</span>
+            <img :src="imgProduct" alt="Продукт" class="catalog_item_img">
+            <span>{{ product.price }}₽</span>
+            <span class="catalog_item_name">{{ product.name }}</span>
+            <span class="catalog_item_description">{{ product.description }}</span>
+            <button v-if="this.token" class="catalog_item_button press_activation" @click="addToBasket(product.id)">
+              Добавить
+            </button>
           </div>
-          <span class="catalog_item_name">{{product.name}}</span>
-          <button v-if="this.token" class="catalog_item_button press_activation" @click="addToBasket(product.id)">Добавить</button>
         </div>
       </div>
     </section>
@@ -18,33 +22,81 @@
 <script>
 import axios from "axios";
 import VueCookies from "vue-cookies";
+import {imgProduct} from "@/assets";
 
 
 export default {
   name: 'HomeView',
   data() {
     return {
+      imgProduct: imgProduct,
       products: [],
-      token:VueCookies.get('token'),
+      token: VueCookies.get('token'),
     }
   },
-  methods: {
-
-  },
+  methods: {},
   created() {
-    axios.get('https://jurapro.bhuser.ru/api-shop/products', {
-    }).then(response => {
+    console.log(this.token)
+    axios.get('https://jurapro.bhuser.ru/api-shop/products', {}).then(response => {
       this.products = response.data.data;
+      console.log(response.data.data)
     })
     let addToBasket = (id) => {
       axios.post(`https://jurapro.bhuser.ru/api-shop/cart/${id}`, {
         product_id: id,
       }, {
-        headers: { Authorization: `Bearer ${this.token}` }
+        headers: {Authorization: `Bearer ${this.token}`}
       }).then(response => {
         console.log(response.data.data.message)
-      }).catch(error => {});
+      }).catch(error => {
+      });
     }
   }
 }
 </script>
+
+<style scoped>
+
+.catalog_item_description {
+  text-align: center;
+  padding: 10px;
+}
+
+.catalog_item_img {
+  width: 100%;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.catalog_item_imgBox {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+}
+
+.catalog_item_name {
+  margin: 10px;
+  text-align: center;
+}
+
+.catalog_item_info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.catalog_item_card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 30%;
+}
+
+.catalog_item {
+  display: flex;
+  flex-flow: wrap;
+  justify-content:center;
+}
+</style>

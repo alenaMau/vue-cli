@@ -1,4 +1,5 @@
 <template>
+  <Header></Header>
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
@@ -28,3 +29,9 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 </style>
+<script>
+import Header from "@/components/Header";
+export default {
+  components: {Header}
+}
+</script>

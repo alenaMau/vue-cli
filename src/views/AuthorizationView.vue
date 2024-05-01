@@ -50,11 +50,9 @@ export default {
           let token = response.data.data.user_token;
           console.log(response)
           VueCookies.set('token', token);
+          window.location = '/'
         }).catch(errorResponse => {
-          console.log("cccc")
-          console.log(errorResponse.response)
           let errorsResponse = errorResponse.response.data.error.errors;
-          console.log(errorsResponse)
           Object.keys(errorsResponse).forEach(e => {
             this.errors[e] = errorsResponse[e].toString();
           })
