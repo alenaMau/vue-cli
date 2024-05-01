@@ -1,36 +1,34 @@
 <template>
-  <section class="registry">
+  <section>
     <h3>Регистрация</h3>
-    <div class="registry_block">
-      <form id="forma" class="registry_block_form" @submit.prevent="onSubmit">
+    <div class="registry_box">
+      <form @submit.prevent="onSubmit">
         <label>
           <input v-model="name" type="text" placeholder="Ваше имя(Обязательно)"/>
         </label>
-        <span class="registry_block_form_error" v-if="errors['name']">{{ errors.name }}</span>
+        <span v-if="errors['name']">{{ errors.name }}</span>
         <label>
           <input v-model="surname" type="text" placeholder="Ваша Фамилия(Обязательно)"/>
         </label>
-        <span class="registry_block_form_error" v-if="errors['surname']">{{ errors.surname }}</span>
+        <span v-if="errors['surname']">{{ errors.surname }}</span>
         <label>
           <input v-model="patronymic" type="text" placeholder="Ваше Отчество(Обязательно)"/>
         </label>
-        <span class="registry_block_form_error" v-if="errors['patronymic']">{{ errors.patronymic }}</span>
+        <span v-if="errors['patronymic']">{{ errors.patronymic }}</span>
         <label>
           <input v-model="email" type="email" placeholder="Ваш e-mail(Обязательно)"/>
         </label>
-        <span class="registry_block_form_error" v-if="errors['email']">{{ errors.email }}</span>
+        <span v-if="errors['email']">{{ errors.email }}</span>
         <label>
           <input v-model="password" class="input" type="password" placeholder="Пароль(Обязательно)"/>
         </label>
-        <span class="registry_block_form_error" v-if="errors['password']">{{ errors.password }}</span>
+        <span v-if="errors['password']">{{ errors.password }}</span>
         <label>
           <input v-model="repeatPassword" class="input" type="password" placeholder="Повторение пароля(Обязательно)"/>
         </label>
-        <span class="registry_block_form_error" v-if="errors['repeat_password']">{{ errors.repeat_password }}</span>
-        <span class="registry_block_form_error" v-if="errors['wrong_repeat']">{{ errors.wrong_repeat }}</span>
-        <button class="basket_products_decorButton press_activation" type="submit">
-          Зарегистрироваться
-        </button>
+        <span v-if="errors['repeat_password']">{{ errors.repeat_password }}</span>
+        <span v-if="errors['wrong_repeat']">{{ errors.wrong_repeat }}</span>
+        <button type="submit">Зарегистрироваться</button>
       </form>
     </div>
   </section>
@@ -104,5 +102,37 @@ export default {
 </script>
 
 <style scoped>
+section {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  flex-direction: column;
+  height: 1141px;
+  align-items: center;
+}
+.registry_box {
+  width: 558px;
+  height: fit-content;
+  padding: 25px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  border: 2px solid #42b983;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+}
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
 
+input {
+  padding: 10px;
+  border-radius: 10px;
+  border: rgba(204, 247, 225, 0.83) 2px solid;
+}
 </style>

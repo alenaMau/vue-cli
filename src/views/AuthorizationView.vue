@@ -1,18 +1,18 @@
 <template>
-  <section class="authorization_box">
+  <section>
     <h3>Авторизация</h3>
-    <div class="authorization_box_form">
-      <form id="forma" @submit.prevent="onSubmit">
+    <div class="authorization_box">
+      <form @submit.prevent="onSubmit">
         <label>
           <input v-model="email" type="email" placeholder="Ваш e-mail(Обязательно)"/>
         </label>
-        <span class="registry_block_form_error" v-if="errors['email']">{{errors.email}}</span>
+        <span v-if="errors['email']">{{errors.email}}</span>
         <label>
-          <input v-model="password" class="input" type="password" placeholder="Пароль(Обязательно)"/>
+          <input v-model="password" type="password" placeholder="Пароль(Обязательно)"/>
         </label>
-        <span class="registry_block_form_error" v-if="errors['password']">{{errors.password}}</span>
-        <span class="registry_block_form_error" v-if="requestError">{{requestError}}</span>
-        <button class="press_activation basket_products_decorBut" type="submit">Войти</button>
+        <span v-if="errors['password']">{{errors.password}}</span>
+        <span v-if="requestError">{{requestError}}</span>
+        <button type="submit">Войти</button>
       </form>
     </div>
   </section>
@@ -64,5 +64,41 @@ export default {
 </script>
 
 <style scoped>
+
+section {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  flex-direction: column;
+  height: 1141px;
+  align-items: center;
+}
+
+.authorization_box {
+  width: 558px;
+  height: 248px;
+  padding: 25px;
+  flex-shrink: 0;
+  border-radius: 15px;
+  border: 2px solid #42b983;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  align-items: center;
+  justify-content: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+input {
+  padding: 10px;
+  border-radius: 10px;
+  border: rgba(204, 247, 225, 0.83) 2px solid;
+}
 
 </style>

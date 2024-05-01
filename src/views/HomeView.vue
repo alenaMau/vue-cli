@@ -9,7 +9,7 @@
             <span>{{ product.price }}₽</span>
             <span class="catalog_item_name">{{ product.name }}</span>
             <span class="catalog_item_description">{{ product.description }}</span>
-            <button v-if="this.token" class="catalog_item_button press_activation" @click="addToBasket(product.id)">
+            <button v-if="this.token" @click="addToBasket(product.id)">
               Добавить
             </button>
           </div>
