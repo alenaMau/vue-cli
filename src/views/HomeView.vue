@@ -9,9 +9,7 @@
             <span>{{ product.price }}₽</span>
             <span class="catalog_item_name">{{ product.name }}</span>
             <span class="catalog_item_description">{{ product.description }}</span>
-            <button v-if="this.token" @click="addToBasket(product.id)">
-              Добавить
-            </button>
+            <button v-if="this.token" @click="addProduct(product.id)">Добавить</button>
           </div>
         </div>
       </div>
@@ -34,23 +32,23 @@ export default {
       token: VueCookies.get('token'),
     }
   },
-  methods: {},
-  created() {
-    console.log(this.token)
-    axios.get('https://jurapro.bhuser.ru/api-shop/products', {}).then(response => {
-      this.products = response.data.data;
-      console.log(response.data.data)
-    })
-    let addToBasket = (id) => {
+  methods: {
+    addProduct(id) {
       axios.post(`https://jurapro.bhuser.ru/api-shop/cart/${id}`, {
-        product_id: id,
+        productId: id,
       }, {
         headers: {Authorization: `Bearer ${this.token}`}
       }).then(response => {
         console.log(response.data.data.message)
-      }).catch(error => {
-      });
-    }
+      }).catch(error => {})
+    },
+  },
+  created() {
+    console.log(this.token)
+    axios.get('https://jurapro.bhuser.ru/api-shop/products', {}).then(response => {
+      this.products = response.data.data;
+      // console.log(response.data.data)
+    })
   }
 }
 </script>
@@ -97,6 +95,6 @@ export default {
 .catalog_item {
   display: flex;
   flex-flow: wrap;
-  justify-content:center;
+  justify-content: center;
 }
 </style>

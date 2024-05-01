@@ -11,6 +11,7 @@
       |
       <router-link to="/">Главная</router-link>
       <div v-if="token">
+        |
         <router-link to="/basket">Корзина</router-link>
       </div>
       <div v-if="!token">
