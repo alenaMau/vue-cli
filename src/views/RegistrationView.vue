@@ -1,0 +1,108 @@
+<template>
+  <section class="registry">
+    <h3>Регистрация</h3>
+    <div class="registry_block">
+      <form id="forma" class="registry_block_form" @submit.prevent="onSubmit">
+        <label>
+          <input v-model="name" type="text" placeholder="Ваше имя(Обязательно)"/>
+        </label>
+        <span class="registry_block_form_error" v-if="errors['name']">{{ errors.name }}</span>
+        <label>
+          <input v-model="surname" type="text" placeholder="Ваша Фамилия(Обязательно)"/>
+        </label>
+        <span class="registry_block_form_error" v-if="errors['surname']">{{ errors.surname }}</span>
+        <label>
+          <input v-model="patronymic" type="text" placeholder="Ваше Отчество(Обязательно)"/>
+        </label>
+        <span class="registry_block_form_error" v-if="errors['patronymic']">{{ errors.patronymic }}</span>
+        <label>
+          <input v-model="email" type="email" placeholder="Ваш e-mail(Обязательно)"/>
+        </label>
+        <span class="registry_block_form_error" v-if="errors['email']">{{ errors.email }}</span>
+        <label>
+          <input v-model="password" class="input" type="password" placeholder="Пароль(Обязательно)"/>
+        </label>
+        <span class="registry_block_form_error" v-if="errors['password']">{{ errors.password }}</span>
+        <label>
+          <input v-model="repeatPassword" class="input" type="password" placeholder="Повторение пароля(Обязательно)"/>
+        </label>
+        <span class="registry_block_form_error" v-if="errors['repeat_password']">{{ errors.repeat_password }}</span>
+        <span class="registry_block_form_error" v-if="errors['wrong_repeat']">{{ errors.wrong_repeat }}</span>
+        <button class="basket_products_decorButton press_activation" type="submit">
+          Зарегистрироваться
+        </button>
+      </form>
+    </div>
+  </section>
+</template>
+
+<script>
+import axios from "axios";
+export default {
+  name: "Registration",
+
+  data() {
+    return {
+      name: "",
+      surname: "",
+      patronymic: "",
+      email: "",
+      password: "",
+      repeatPassword: "",
+      errors: {}
+    }
+  },
+  methods: {
+    onSubmit() {
+      let fio = this.name + ' ' + this.surname + ' ' + this.patronymic
+      if (this.name.length === 0 || this.name.length > 30) {
+        this.errors['name'] = 'Количество символов в имени больше 30 или вообще отсутсвуют'
+      }
+      if (this.surname.length === 0 || this.surname.length > 30) {
+        this.errors['surname'] = 'Количество символов в фамилии больше 30 или вообще отсутсвуют'
+      }
+      if (this.patronymic.length === 0 || this.patronymic.length > 30) {
+        this.errors['patronymic'] = 'Количество символов в отчестве больше 30 или вообще отсутсвуют'
+      }
+      if (this.email.length === 0 || this.email.length > 30) {
+        this.errors['email'] = 'Количество символов в отчестве больше 30 или вообще отсутсвуют'
+      }
+      if (this.email.indexOf('@') < 0) {
+        this.errors['email'] = 'Отсутвует @ в поле e-mail'
+      }
+      if (this.password.length === 0 || this.password.length > 30) {
+        this.errors['password'] = 'Количество символов в пароле больше 30 или вообще отсутсвует'
+      }
+      if (this.repeatPassword.length === 0 || this.repeatPassword.length > 30) {
+        this.errors['repeat_password'] = 'Количество символов в пароле больше 30 или вообще отсутсвует'
+      }
+      if (this.password !== this.repeatPassword) {
+        this.errors['wrong_repeat'] = 'Пароли не совпадают'
+      }
+      if (Object.keys(this.errors).length === 0) {
+        axios.post('https://jurapro.bhuser.ru/api-shop/signup', {
+          fio: fio,
+          email: this.email,
+          password: this.password
+        }).then(response => {
+          console.log('Ты зареган')
+          window.location = '/authorization'
+        }).catch(errorResponse => {
+          console.log("cccc")
+          let errorsResponse = errorResponse.response.data.error.errors;
+          console.log(errorsResponse)
+          Object.keys(errorsResponse).forEach(e => {
+            this.errors[e] = errorsResponse[e].toString();
+          })
+        });
+      }
+    }
+  }
+
+}
+
+</script>
+
+<style scoped>
+
+</style>
