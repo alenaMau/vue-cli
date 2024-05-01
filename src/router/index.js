@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import RegistrationView from "@/views/RegistrationView";
 import AuthorizationView from "@/views/AuthorizationView";
 import BasketView from "@/views/BasketView";
+import OrderCompleted from "@/views/OrderCompleted";
 
 const routes = [
   {
@@ -19,6 +20,11 @@ const routes = [
     path: '/basket',
     name: 'basket',
     component: BasketView
+  },
+  {
+    path: '/orderCompleted',
+    name: 'orderCompleted',
+    component: OrderCompleted
   },
   {
     path: '/authorization',

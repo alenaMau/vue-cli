@@ -3,15 +3,15 @@
     <h3>Корзина</h3>
     <div>
       <div>
-        <div v-for="cart in carts">
+        <div v-for="(cart,index) in carts">
           <div>
             <div>
-              <span>{{cart.name}}</span>
+              <span>Имя продукта: {{cart.name}}</span>
               <h5>Описание: {{cart.description}}</h5>
               <div>
-                <button>-</button>
+                <button @click="decreaseCount(index)">-</button>
                 <span>{{ cart.count }}</span>
-                <button>+</button>
+                <button @click="increaseCount(index)">+</button>
               </div>
             </div>
           </div>
@@ -37,6 +37,7 @@
 <script>
 import axios from "axios";
 import VueCookies from "vue-cookies";
+import router from "@/router";
 
 export default {
   name: "BasketView",
@@ -60,8 +61,20 @@ export default {
       axios.post('https://jurapro.bhuser.ru/api-shop/order', {}, {
         headers: { Authorization: `Bearer ${this.token}` }
       }).then(response => {
-        console.log(asd)
+        router.push({ name:'orderCompleted'})
       })
+    },
+    increaseCount(index) {
+      this.carts[index].count++;
+      this.priceAll += this.carts[index].price;
+      this.productsCount++;
+    },
+    decreaseCount(index) {
+      if (this.carts[index].count > 1) {
+        this.carts[index].count--;
+        this.priceAll -= this.carts[index].price;
+        this.productsCount--;
+      }
     }
   },
   created() {
@@ -69,6 +82,7 @@ export default {
       headers: { Authorization: `Bearer ${this.token}` }
     }).then(response => {
       this.carts = response.data.data;
+      console.log(response.data.data)
       console.log(this.carts)
       this.carts.forEach(el => {
         el.count = 1;
