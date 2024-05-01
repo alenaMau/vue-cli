@@ -1,13 +1,13 @@
 <template>
   <header>
     <nav>
-    <div v-if="token" @click="logout()">
-      <a>Выход</a>
-    </div>
-    <div v-if="!token">
-      |
-      <router-link to="/authorization">Вход</router-link>
-    </div>
+      <div v-if="token" @click="logout()">
+        <a>Выход</a>
+      </div>
+      <div v-if="!token">
+        |
+        <router-link to="/authorization">Вход</router-link>
+      </div>
       |
       <router-link to="/">Главная</router-link>
       <div v-if="token">
@@ -24,12 +24,11 @@
 </template>
 
 <script>
-import {imgProduct} from "@/assets";
 import VueCookies from "vue-cookies";
 import axios from "axios";
 
 export default {
-  name: "Header",
+  name: "Footer",
 
   data() {
     return {
@@ -40,7 +39,7 @@ export default {
   methods: {
     logout() {
       const config = {
-        headers: {Authorization: `Bearer ${this.token}`}
+        footers: {Authorization: `Bearer ${this.token}`}
       };
       axios.get('https://jurapro.bhuser.ru/api-shop/logout', config).then(response => {
         if (response.data.data.message === 'logout') {
