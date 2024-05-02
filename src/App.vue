@@ -28,6 +28,14 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
+
+button {
+  cursor: pointer;
+  background-color: #c3ea90;
+  padding: 20px;
+  border-radius: 10px;
+  border: none;
+}
 </style>
 <script>
 import Header from "@/components/Header";

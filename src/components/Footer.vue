@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <footer>
     <nav>
       <div v-if="token" @click="logout()">
         <a>Выход</a>
@@ -20,7 +20,7 @@
         </router-link>
       </div>
     </nav>
-  </header>
+  </footer>
 </template>
 
 <script>
@@ -57,7 +57,7 @@ export default {
 
 <style scoped>
 
-header {
+footer {
   display: flex;
 }
 

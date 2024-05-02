@@ -1,28 +1,28 @@
 <template>
   <section>
     <h3>Корзина</h3>
-    <div>
+    <div class="cards">
       <div>
-        <div v-for="(cart,index) in carts">
-          <div>
+        <div v-for="(cart,index) in carts" class="cards_box">
+          <div >
             <div>
-              <span>Имя продукта: {{cart.name}}</span>
-              <h5>Описание: {{cart.description}}</h5>
+              <span>Имя продукта: {{ cart.name }}</span><br>
+              <span class="cards_description">Описание: {{ cart.description }}</span>
               <div>
                 <button @click="decreaseCount(index)">-</button>
-                <span>{{ cart.count }}</span>
+                <span>Количество: {{ cart.count }}</span>
                 <button @click="increaseCount(index)">+</button>
               </div>
             </div>
           </div>
-          <span>{{cart.price}}₽</span>
+          <span>Цена:{{ cart.price }}₽</span>
           <button @click="deleteProduct(cart.id)">Удалить</button>
         </div>
       </div>
-      <div>
-        <div>
+      <div class="order">
+        <div class="order_box">
           <span>К оплате: {{ priceAll }}₽.</span>
-          <span>Количество товаров: {{productsCount}} шт.</span>
+          <span>Количество товаров: {{ productsCount }} шт.</span>
           <span>Доставка: Бесплатно.</span>
           <span>Адрес:Город Томск,XXXXXXXXXXXXXXXX.</span>
           <span>Оплата: Картой.</span>
@@ -44,24 +44,24 @@ export default {
   data() {
     return {
       token: VueCookies.get('token'),
-      carts:[],
-      priceAll:0,
-      productsCount:0,
+      carts: [],
+      priceAll: 0,
+      productsCount: 0,
     }
   },
   methods: {
     deleteProduct(id) {
       axios.delete(`https://jurapro.bhuser.ru/api-shop/cart/${id}`, {
-        headers: { Authorization: `Bearer ${this.token}` }
+        headers: {Authorization: `Bearer ${this.token}`}
       }).then(response => {
         location.reload()
       })
     },
     order() {
       axios.post('https://jurapro.bhuser.ru/api-shop/order', {}, {
-        headers: { Authorization: `Bearer ${this.token}` }
+        headers: {Authorization: `Bearer ${this.token}`}
       }).then(response => {
-        router.push({ name:'orderCompleted'})
+        router.push({name: 'orderCompleted'})
       })
     },
     increaseCount(index) {
@@ -79,7 +79,7 @@ export default {
   },
   created() {
     axios.get('https://jurapro.bhuser.ru/api-shop/cart', {
-      headers: { Authorization: `Bearer ${this.token}` }
+      headers: {Authorization: `Bearer ${this.token}`}
     }).then(response => {
       this.carts = response.data.data;
       console.log(response.data.data)
@@ -89,12 +89,59 @@ export default {
         this.priceAll += el.price;
         this.productsCount += el.count;
       })
-    }).catch(error => {})
+    }).catch(error => {
+    })
   }
 
 }
 </script>
 
 <style scoped>
+.cards_description {
+  display: inline-block;
+  width: 50%;
+  margin: 10px;
+}
 
+.cards_box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  width: 408px;
+  height: fit-content;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 20px;
+  border: 2px solid #bacdb8;
+}
+
+.cards {
+  width: 100%;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+section{
+  display: grid;
+  justify-content: center;
+}
+
+.order {
+  margin: 40px;
+  display: flex;
+  justify-content: center;
+  width: 30%;
+  height: fit-content;
+}
+
+.order_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
 </style>

@@ -6,9 +6,9 @@
         <div v-for="product in products" class="catalog_item_card">
           <div class="catalog_item_imgBox">
             <img :src="imgProduct" alt="Продукт" class="catalog_item_img">
-            <span>{{ product.price }}₽</span>
-            <span class="catalog_item_name">{{ product.name }}</span>
-            <span class="catalog_item_description">{{ product.description }}</span>
+            <span><strong>Цена:</strong> {{ product.price }}₽</span>
+            <span class="catalog_item_name"><strong>Имя товара:</strong> {{ product.name }}</span>
+            <span class="catalog_item_description"><strong>Описание:</strong> {{ product.description }}</span>
             <button v-if="this.token" @click="addProduct(product.id)">Добавить</button>
           </div>
         </div>
