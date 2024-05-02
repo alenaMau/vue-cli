@@ -21,6 +21,7 @@
 <script>
 import axios from "axios";
 import VueCookies from 'vue-cookies'
+import {thisUrl} from "@/utils/api";
 
 export default {
   name: "AuthorizationView",
@@ -42,7 +43,7 @@ export default {
         this.errors['password'] = 'Количество символов в пароле больше 30 или вообще отсутсвует'
       }
       if (Object.keys(this.errors).length === 0) {
-        axios.post('https://jurapro.bhuser.ru/api-shop/login', {
+        axios.post(thisUrl()+'/login', {
           email: this.email,
           password: this.password
         }).then(response => {

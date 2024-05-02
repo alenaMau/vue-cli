@@ -41,6 +41,7 @@
 import axios from "axios";
 import VueCookies from "vue-cookies";
 import router from "@/router";
+import {thisUrl} from "@/utils/api";
 
 export default {
   name: "BasketView",
@@ -54,14 +55,14 @@ export default {
   },
   methods: {
     deleteProduct(id) {
-      axios.delete(`https://jurapro.bhuser.ru/api-shop/cart/${id}`, {
+      axios.delete(thisUrl()+`/cart/${id}`, {
         headers: {Authorization: `Bearer ${this.token}`}
       }).then(response => {
         location.reload()
       })
     },
     order() {
-      axios.post('https://jurapro.bhuser.ru/api-shop/order', {}, {
+      axios.post(thisUrl()+'/order', {}, {
         headers: {Authorization: `Bearer ${this.token}`}
       }).then(response => {
         router.push({name: 'orderCompleted'})
@@ -81,7 +82,7 @@ export default {
     }
   },
   created() {
-    axios.get('https://jurapro.bhuser.ru/api-shop/cart', {
+    axios.get(thisUrl()+'/cart', {
       headers: {Authorization: `Bearer ${this.token}`}
     }).then(response => {
       this.carts = response.data.data;

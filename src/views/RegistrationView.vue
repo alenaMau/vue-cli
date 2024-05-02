@@ -36,6 +36,7 @@
 
 <script>
 import axios from "axios";
+import {thisUrl} from "@/utils/api";
 export default {
   name: "Registration",
 
@@ -78,7 +79,7 @@ export default {
         this.errors['wrong_repeat'] = 'Пароли не совпадают'
       }
       if (Object.keys(this.errors).length === 0) {
-        axios.post('https://jurapro.bhuser.ru/api-shop/signup', {
+        axios.post(thisUrl()+'/signup', {
           fio: fio,
           email: this.email,
           password: this.password

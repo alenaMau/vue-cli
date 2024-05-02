@@ -1,14 +1,9 @@
 <template>
   <footer>
     <nav>
-      <div v-if="token" @click="logout()">
-        <a>Выход</a>
-      </div>
       <div v-if="!token">
-        |
         <router-link to="/authorization">Вход</router-link>
       </div>
-      |
       <router-link to="/">Главная</router-link>
       <div v-if="token">
         <router-link to="/basket">Корзина</router-link>
@@ -26,6 +21,7 @@
 <script>
 import VueCookies from "vue-cookies";
 import axios from "axios";
+import {thisUrl} from "@/utils/api";
 
 export default {
   name: "Footer",
@@ -37,18 +33,7 @@ export default {
     }
   },
   methods: {
-    logout() {
-      const config = {
-        footers: {Authorization: `Bearer ${this.token}`}
-      };
-      axios.get('https://jurapro.bhuser.ru/api-shop/logout', config).then(response => {
-        if (response.data.data.message === 'logout') {
-          VueCookies.remove('token')
-          window.location = '/'
-        }
-      }).catch(error => {
-      });
-    }
+
   }
 }
 

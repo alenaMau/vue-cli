@@ -21,6 +21,7 @@
 import axios from "axios";
 import VueCookies from "vue-cookies";
 import {imgProduct} from "@/assets";
+import {thisUrl} from "@/utils/api";
 
 
 export default {
@@ -34,7 +35,7 @@ export default {
   },
   methods: {
     addProduct(id) {
-      axios.post(`https://jurapro.bhuser.ru/api-shop/cart/${id}`, {
+      axios.post(thisUrl()+`/cart/${id}`, {
         productId: id,
       }, {
         headers: {Authorization: `Bearer ${this.token}`}
@@ -45,7 +46,7 @@ export default {
   },
   created() {
     console.log(this.token)
-    axios.get('https://jurapro.bhuser.ru/api-shop/products', {}).then(response => {
+    axios.get(thisUrl()+'/products', {}).then(response => {
       this.products = response.data.data;
       // console.log(response.data.data)
     })

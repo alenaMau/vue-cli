@@ -28,6 +28,7 @@
 import {imgProduct} from "@/assets";
 import VueCookies from "vue-cookies";
 import axios from "axios";
+import {thisUrl} from "@/utils/api";
 
 export default {
   name: "Header",
@@ -43,7 +44,7 @@ export default {
       const config = {
         headers: {Authorization: `Bearer ${this.token}`}
       };
-      axios.get('https://jurapro.bhuser.ru/api-shop/logout', config).then(response => {
+      axios.get(thisUrl()+'/logout', config).then(response => {
         if (response.data.data.message === 'logout') {
           VueCookies.remove('token')
           window.location = '/'
