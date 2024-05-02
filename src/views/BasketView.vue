@@ -3,8 +3,11 @@
     <h3>Корзина</h3>
     <div class="cards">
       <div>
+        <div v-if="carts.length === 0">
+          <p>Корзина пуста.</p>
+        </div>
         <div v-for="(cart,index) in carts" class="cards_box">
-          <div >
+          <div>
             <div>
               <span>Имя продукта: {{ cart.name }}</span><br>
               <span class="cards_description">Описание: {{ cart.description }}</span>
@@ -128,6 +131,7 @@ export default {
 section{
   display: grid;
   justify-content: center;
+  height: 85vh;
 }
 
 .order {
