@@ -6,9 +6,10 @@
 
 <script>
 import VueCookies from "vue-cookies";
+import router from "@/router";
 
 if (!VueCookies.get('token')) {
-  window.location = '/';
+  router.push({name:'HomeView'});
 }
 
 export default {

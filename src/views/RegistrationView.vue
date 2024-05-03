@@ -37,6 +37,8 @@
 <script>
 import axios from "axios";
 import {thisUrl} from "@/utils/api";
+import router from "@/router";
+import AuthorizationView from "@/views/AuthorizationView";
 export default {
   name: "Registration",
 
@@ -85,7 +87,7 @@ export default {
           password: this.password
         }).then(response => {
           console.log('Ты зареган')
-          window.location = '/authorization'
+          router.push({name:'AuthorizationView'})
         }).catch(errorResponse => {
           console.log("cccc")
           let errorsResponse = errorResponse.response.data.error.errors;

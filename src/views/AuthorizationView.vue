@@ -22,6 +22,8 @@
 import axios from "axios";
 import VueCookies from 'vue-cookies'
 import {thisUrl} from "@/utils/api";
+import router from "@/router";
+import HomeView from "@/views/HomeView";
 
 export default {
   name: "AuthorizationView",
@@ -51,7 +53,7 @@ export default {
           let token = response.data.data.user_token;
           console.log(response)
           VueCookies.set('token', token);
-          window.location = '/'
+          router.push({name:'HomeView'})
         }).catch(errorResponse => {
           let errorsResponse = errorResponse.response.data.error.errors;
           Object.keys(errorsResponse).forEach(e => {
