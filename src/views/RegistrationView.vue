@@ -4,30 +4,30 @@
     <div class="registry_box">
       <form @submit.prevent="onSubmit">
         <label>
-          <input v-model="name" type="text" placeholder="Ваше имя(Обязательно)"/>
+          <input v-model="name" type="text" placeholder="Ваше имя(Обязательно)" @focus="clearError('name')"/>
         </label>
         <span v-if="errors['name']">{{ errors.name }}</span>
         <label>
-          <input v-model="surname" type="text" placeholder="Ваша Фамилия(Обязательно)"/>
+          <input v-model="surname" type="text" placeholder="Ваша Фамилия(Обязательно)" @focus="clearError('surname')"/>
         </label>
         <span v-if="errors['surname']">{{ errors.surname }}</span>
         <label>
-          <input v-model="patronymic" type="text" placeholder="Ваше Отчество(Обязательно)"/>
+          <input v-model="patronymic" type="text" placeholder="Ваше Отчество(Обязательно)" @focus="clearError('patronymic')"/>
         </label>
         <span v-if="errors['patronymic']">{{ errors.patronymic }}</span>
         <label>
-          <input v-model="email" type="email" placeholder="Ваш e-mail(Обязательно)"/>
+          <input v-model="email" type="email" placeholder="Ваш e-mail(Обязательно)" @focus="clearError('email')"/>
         </label>
         <span v-if="errors['email']">{{ errors.email }}</span>
         <label>
-          <input v-model="password" class="input" type="password" placeholder="Пароль(Обязательно)"/>
+          <input v-model="password" class="input" type="password" placeholder="Пароль(Обязательно)" @focus="clearError('password')"/>
         </label>
         <span v-if="errors['password']">{{ errors.password }}</span>
         <label>
-          <input v-model="repeatPassword" class="input" type="password" placeholder="Повторение пароля(Обязательно)"/>
+          <input v-model="repeatPassword" class="input" type="password" placeholder="Повторение пароля(Обязательно)" @focus="clearError('repeatPassword')"/>
         </label>
-        <span v-if="errors['repeat_password']">{{ errors.repeat_password }}</span>
-        <span v-if="errors['wrong_repeat']">{{ errors.wrong_repeat }}</span>
+        <span v-if="errors['repeat_password']" @focus="clearError('repeatPassword')">{{ errors.repeat_password }}</span>
+        <span v-if="errors['wrong_repeat']" @focus="clearError('wrong_repeat')">{{ errors.wrong_repeat }}</span>
         <button type="submit">Зарегистрироваться</button>
       </form>
     </div>
@@ -54,6 +54,11 @@ export default {
     }
   },
   methods: {
+    clearError(field) {
+      if (this.errors[field]) {
+        this.errors[field] = '';
+      }
+    },
     onSubmit() {
       let fio = this.name + ' ' + this.surname + ' ' + this.patronymic
       if (this.name.length === 0 || this.name.length > 30) {
@@ -87,7 +92,7 @@ export default {
           password: this.password
         }).then(response => {
           console.log('Ты зареган')
-          router.push({name:'AuthorizationView'})
+          router.push('/authorization')
         }).catch(errorResponse => {
           console.log("cccc")
           let errorsResponse = errorResponse.response.data.error.errors;

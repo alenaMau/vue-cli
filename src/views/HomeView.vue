@@ -31,6 +31,8 @@ export default {
       imgProduct: imgProduct,
       products: [],
       token: VueCookies.get('token'),
+      addedProductId: null,
+      quantity: 0,
     }
   },
   methods: {
@@ -40,18 +42,24 @@ export default {
       }, {
         headers: {Authorization: `Bearer ${this.token}`}
       }).then(response => {
+        alert("Вы добавили товар в корзину")
         console.log(response.data.data.message)
       }).catch(error => {})
     },
-  },
+},
   created() {
-    console.log(this.token)
-    axios.get(thisUrl()+'/products', {}).then(response => {
-      this.products = response.data.data;
-      // console.log(response.data.data)
-    })
+    axios.get(thisUrl() + '/products', {
+      headers: {Authorization: `Bearer ${this.token}`}
+    }).then(response => {
+      this.products = response.data.data.map(product => ({
+        ...product,
+      }));
+    }).catch(error => {
+      console.error('Error fetching products:', error);
+    });
   }
 }
+
 </script>
 
 <style scoped>
@@ -80,11 +88,6 @@ export default {
   text-align: center;
 }
 
-.catalog_item_info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
 
 .catalog_item_card {
   display: flex;

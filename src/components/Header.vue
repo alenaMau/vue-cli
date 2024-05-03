@@ -4,6 +4,7 @@
     <div v-if="token" @click="logout()">
       <a>Выход</a>
     </div>
+
     <div v-if="!token">
       |
       <router-link to="/authorization">Вход</router-link>
@@ -13,6 +14,9 @@
       <div v-if="token">
         |
         <router-link to="/basket">Корзина</router-link>
+      </div>
+      <div v-if="token">
+        <router-link to="/order">Заказы</router-link>
       </div>
       <div v-if="!token">
         |
@@ -48,7 +52,7 @@ export default {
       axios.get(thisUrl()+'/logout', config).then(response => {
         if (response.data.data.message === 'logout') {
           VueCookies.remove('token')
-          router.push({name:'HomeView'})
+          // router.push("/")
         }
       }).catch(error => {
       });

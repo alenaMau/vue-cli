@@ -4,6 +4,7 @@ import RegistrationView from "@/views/RegistrationView";
 import AuthorizationView from "@/views/AuthorizationView";
 import BasketView from "@/views/BasketView";
 import OrderCompleted from "@/views/OrderCompleted";
+import Order from "@/views/Order";
 
 const routes = [
   {
@@ -30,6 +31,11 @@ const routes = [
     path: '/authorization',
     name: 'authorization',
     component: AuthorizationView
+  },
+  {
+    path: '/order',
+    name: 'order',
+    component: Order
   },
   {
     path: '/about',

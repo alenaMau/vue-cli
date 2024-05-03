@@ -4,11 +4,11 @@
     <div class="authorization_box">
       <form @submit.prevent="onSubmit">
         <label>
-          <input v-model="email" type="email" placeholder="Ваш e-mail(Обязательно)"/>
+          <input v-model="email" type="email" placeholder="Ваш e-mail(Обязательно)" @focus="clearError('email')"/>
         </label>
         <span v-if="errors['email']">{{errors.email}}</span>
         <label>
-          <input v-model="password" type="password" placeholder="Пароль(Обязательно)"/>
+          <input v-model="password" type="password" placeholder="Пароль(Обязательно)" @focus="clearError('password')"/>
         </label>
         <span v-if="errors['password']">{{errors.password}}</span>
         <span v-if="requestError">{{requestError}}</span>
@@ -37,6 +37,11 @@ export default {
     }
   },
   methods: {
+    clearError(field) {
+      if (this.errors[field]) {
+        this.errors[field] = '';
+      }
+    },
     onSubmit() {
       if (this.email.indexOf('@') < 0) {
         this.errors['email'] = 'Отсутвует @ в поле e-mail'
@@ -53,7 +58,7 @@ export default {
           let token = response.data.data.user_token;
           console.log(response)
           VueCookies.set('token', token);
-          router.push({name:'HomeView'})
+          router.push("/")
         }).catch(errorResponse => {
           let errorsResponse = errorResponse.response.data.error.errors;
           Object.keys(errorsResponse).forEach(e => {

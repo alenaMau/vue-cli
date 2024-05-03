@@ -9,7 +9,7 @@ import VueCookies from "vue-cookies";
 import router from "@/router";
 
 if (!VueCookies.get('token')) {
-  router.push({name:'HomeView'});
+  // router.push("/");
 }
 
 export default {
