@@ -42,4 +42,16 @@ export default {
 </script>
 
 <style scoped>
+section {
+  display: grid;
+  justify-content: center;
+}
+
+.order {
+  margin: 15px;
+  width: 80%;
+  padding: 20px;
+  border-radius: 10px;
+  border: #42b983 2px solid;
+}
 </style>
