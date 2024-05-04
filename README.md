@@ -15,5 +15,11 @@ npm run serve
 npm run build
 ```
 
+
+```
+"https://jurapro.bhuser.ru/api-shop" : для работы дома
+"http://fmiafhh-m1.wsr.ru/api-shop" : для работы в техникуме
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
